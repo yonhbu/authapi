@@ -27,21 +27,36 @@ public class AuthServiceImpl implements AuthService {
 
    
         AuthResponseDTO auth = dummyAuthClient.login(authRequestDTO);
-
-        String cookieHeader = ApiConstants.COOKIE_ACCESS_TOKEN  + "=" + auth.getAccessToken()
-                            + "; " + ApiConstants.COOKIE_REFRESH_TOKEN + "="
-                            + Optional.ofNullable(auth.getRefreshToken()).orElse("");
-
+       
+        String cookieHeader = buildCookieHeader(auth.getAccessToken(), auth.getRefreshToken());
         UserInfoDTO me = dummyAuthClient.getAuthenticatedUser(cookieHeader);
-
-        
-        LoginLog log = new LoginLog();
-        log.setUsername(authRequestDTO.getUsername());
-        log.setLoginTime(LocalDateTime.now());
-        log.setAccessToken(auth.getAccessToken());
-        log.setRefreshToken(auth.getRefreshToken());
-        loginLogRepository.save(log);
+       
+        LoginLog loginLog = buildLoginLog(authRequestDTO, auth, cookieHeader);
+        loginLog.setCookies(cookieHeader);
+        loginLogRepository.save(loginLog);
+            
 
         return me;
+        
     }
+    
+    
+    private String buildCookieHeader(String accessToken, String refreshToken) {
+        return ApiConstants.COOKIE_ACCESS_TOKEN + "=" + accessToken + "; "
+             + ApiConstants.COOKIE_REFRESH_TOKEN + "="
+             + Optional.ofNullable(refreshToken).orElse("");
+    }
+    
+    
+    private LoginLog buildLoginLog(AuthRequestDTO req, AuthResponseDTO auth, String cookies) {
+        return LoginLog.builder()
+                .username(req.getUsername())
+                .loginTime(LocalDateTime.now())
+                .accessToken(auth.getAccessToken())
+                .refreshToken(auth.getRefreshToken())
+                .cookies(cookies)
+                .build();
+    }
+
+
 }

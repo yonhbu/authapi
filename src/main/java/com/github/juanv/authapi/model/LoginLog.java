@@ -2,6 +2,7 @@ package com.github.juanv.authapi.model;
 
 import com.github.juanv.authapi.util.ApiConstants;
 
+import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 
 
 @Data
+@Builder
 @Entity
 @Table(name = ApiConstants.TABLE_NAME)
 public class LoginLog {
@@ -36,6 +38,8 @@ public class LoginLog {
     @Column(name = ApiConstants.COL_REFRESH_TOKEN, columnDefinition = "TEXT")
     private String refreshToken;
     
+    @Column(name = ApiConstants.COL_COOKIES, columnDefinition = "TEXT")
+    private String cookies;
     
 }
 

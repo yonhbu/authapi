@@ -29,6 +29,7 @@ public final class ApiConstants {
     public static final String COL_LOGIN_TIME       = "login_time";
     public static final String COL_ACCESS_TOKEN     = "access_token";
     public static final String COL_REFRESH_TOKEN    = "refresh_token";
+    public static final String COL_COOKIES          = "cookies";
 
     
     public static final int DEFAULT_SKIP  = 0;
