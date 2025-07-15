@@ -1,7 +1,5 @@
 package com.github.juanv.authapi.service;
 
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,18 +25,16 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserInfoDTO loginAndLog(AuthRequestDTO authRequestDTO) {
 
-        /* 1️⃣  Login externo */
+   
         AuthResponseDTO auth = dummyAuthClient.login(authRequestDTO);
 
-        /* 2️⃣  Construir la cookie */
         String cookieHeader = ApiConstants.COOKIE_ACCESS_TOKEN  + "=" + auth.getAccessToken()
                             + "; " + ApiConstants.COOKIE_REFRESH_TOKEN + "="
                             + Optional.ofNullable(auth.getRefreshToken()).orElse("");
 
-        /* 3️⃣  Obtener el perfil autenticado */
         UserInfoDTO me = dummyAuthClient.getAuthenticatedUser(cookieHeader);
 
-        /* 4️⃣  Registrar en la base de datos */
+        
         LoginLog log = new LoginLog();
         log.setUsername(authRequestDTO.getUsername());
         log.setLoginTime(LocalDateTime.now());
@@ -46,7 +42,6 @@ public class AuthServiceImpl implements AuthService {
         log.setRefreshToken(auth.getRefreshToken());
         loginLogRepository.save(log);
 
-        /* 5️⃣  Devolver el perfil */
         return me;
     }
 }
