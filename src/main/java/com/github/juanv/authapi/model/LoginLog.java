@@ -1,4 +1,4 @@
-package com.authapi.login.authapi.model;
+package com.github.juanv.authapi.model;
 
 
 import lombok.Data;

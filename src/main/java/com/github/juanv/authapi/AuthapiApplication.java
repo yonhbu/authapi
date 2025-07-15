@@ -1,4 +1,4 @@
-package com.authapi.login.authapi;
+package com.github.juanv.authapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

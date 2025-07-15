@@ -1,18 +1,18 @@
-package com.authapi.login.authapi.dto.user;
+package com.github.juanv.authapi.dto.auth;
 
 import lombok.Data;
 
 @Data
-public class DummyUserDTO {
+public class AuthResponseDTO {
 	
     private int id;
     
     private String username;
     
     private String email;
-    
+
     private String firstName;
-    
+
     private String lastName;
 
     private String gender;
@@ -23,5 +23,4 @@ public class DummyUserDTO {
     
     private String refreshToken;
     
- 
 }

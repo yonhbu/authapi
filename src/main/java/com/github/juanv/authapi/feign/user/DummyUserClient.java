@@ -1,19 +1,19 @@
-package com.authapi.login.authapi.feign.user;
+package com.github.juanv.authapi.feign.user;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.authapi.login.authapi.dto.user.UserInfoDTO;
-import com.authapi.login.authapi.dto.user.UserListResponseDTO;
+
+import com.github.juanv.authapi.dto.user.UserListResponseDTO;
+import com.github.juanv.authapi.util.ApiConstants;
 
 
 
-@FeignClient(name = "dummyAuthClient", url = "https://dummyjson.com")
+@FeignClient(name = "dummyAuthClient", url = ApiConstants.DUMMYJSON_BASE_URL)
 public interface DummyUserClient {
 	
 
-    @GetMapping("/users")
+    @GetMapping(ApiConstants.PATH_USERS)
     UserListResponseDTO getUsers(@RequestParam(defaultValue = "0") int skip,
                               @RequestParam(defaultValue = "30") int limit);      
         

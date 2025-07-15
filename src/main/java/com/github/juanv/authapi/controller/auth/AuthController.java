@@ -1,4 +1,4 @@
-package com.authapi.login.authapi.controller.auth;
+package com.github.juanv.authapi.controller.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,18 +7,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.authapi.login.authapi.dto.auth.AuthRequestDTO;
-import com.authapi.login.authapi.dto.user.UserInfoDTO;
-import com.authapi.login.authapi.service.AuthService;
+import com.github.juanv.authapi.dto.auth.AuthRequestDTO;
+import com.github.juanv.authapi.dto.user.UserInfoDTO;
+import com.github.juanv.authapi.service.AuthService;
+import com.github.juanv.authapi.util.ApiConstants;
+
+
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(ApiConstants.API_AUTH_BASE)
 @RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping(ApiConstants.PATH_LOGIN )
     public ResponseEntity<UserInfoDTO> login(@RequestBody AuthRequestDTO authRequestDTO) {
     	
         UserInfoDTO userInfoDTO = authService.loginAndLog(authRequestDTO);

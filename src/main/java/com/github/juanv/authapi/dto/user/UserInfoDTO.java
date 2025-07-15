@@ -1,4 +1,4 @@
-package com.authapi.login.authapi.dto.user;
+package com.github.juanv.authapi.dto.user;
 
 import lombok.Data;
 

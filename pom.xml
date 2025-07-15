@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.authapi.login</groupId>
+    <groupId>com.github.juanv.login</groupId>
     <artifactId>authapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>authapi</name>
