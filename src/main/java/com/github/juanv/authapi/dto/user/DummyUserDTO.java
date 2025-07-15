@@ -9,6 +9,8 @@ public class DummyUserDTO {
     
     private String username;
     
+    private String password;
+    
     private String email;
     
     private String firstName;
