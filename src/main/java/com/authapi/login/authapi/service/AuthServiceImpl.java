@@ -1,10 +1,10 @@
 package com.authapi.login.authapi.service;
 
 
-import com.authapi.login.authapi.dto.AuthRequestDTO;
-import com.authapi.login.authapi.dto.AuthResponseDTO;
-import com.authapi.login.authapi.dto.UserInfoDTO;
-import com.authapi.login.authapi.feign.DummyAuthClient;
+import com.authapi.login.authapi.dto.auth.AuthRequestDTO;
+import com.authapi.login.authapi.dto.auth.AuthResponseDTO;
+import com.authapi.login.authapi.dto.user.UserInfoDTO;
+import com.authapi.login.authapi.feign.auth.DummyAuthClient;
 import com.authapi.login.authapi.model.LoginLog;
 import com.authapi.login.authapi.repository.LoginLogRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +20,19 @@ public class AuthServiceImpl implements AuthService {
     private final LoginLogRepository loginLogRepository;
 
     @Override
-    public UserInfoDTO loginAndLog(AuthRequestDTO req) {
+    public UserInfoDTO loginAndLog(AuthRequestDTO authRequestDTO) {
     	
-        AuthResponseDTO auth = dummyAuthClient.login(req);
+        AuthResponseDTO authResponseDTO = dummyAuthClient.login(authRequestDTO);
 
-        String cookieHeader = "accessToken=" + auth.getAccessToken();
+        String cookieHeader = "accessToken=" + authResponseDTO.getAccessToken();
         UserInfoDTO me = dummyAuthClient.getAuthenticatedUser(cookieHeader);
 
-        LoginLog log = new LoginLog();
-        log.setUsername(req.getUsername());
-        log.setLoginTime(LocalDateTime.now());
-        log.setAccessToken(auth.getAccessToken());
-        log.setRefreshToken(auth.getRefreshToken());
-        loginLogRepository.save(log);
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUsername(authRequestDTO.getUsername());
+        loginLog.setLoginTime(LocalDateTime.now());
+        loginLog.setAccessToken(authResponseDTO.getAccessToken());
+        loginLog.setRefreshToken(authResponseDTO.getRefreshToken());
+        loginLogRepository.save(loginLog);
 
         return me;
     }

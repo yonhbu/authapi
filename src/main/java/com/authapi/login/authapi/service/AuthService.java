@@ -1,9 +1,9 @@
 package com.authapi.login.authapi.service;
 
-import com.authapi.login.authapi.dto.AuthRequestDTO;
-import com.authapi.login.authapi.dto.UserInfoDTO;
+import com.authapi.login.authapi.dto.auth.AuthRequestDTO;
+import com.authapi.login.authapi.dto.user.UserInfoDTO;
 
 public interface AuthService {
 	
-    UserInfoDTO loginAndLog(AuthRequestDTO req);
+    UserInfoDTO loginAndLog(AuthRequestDTO authRequestDTO);
 }
