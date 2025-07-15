@@ -3,8 +3,9 @@ package com.authapi.login.authapi.dto;
 import lombok.Data;
 
 @Data
-public class UserInfo {
-    private int id;
+public class AuthRequestDTO {
+	
     private String username;
-    private String email;
+    
+    private String password;
 }
